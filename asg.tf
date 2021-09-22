@@ -1,17 +1,18 @@
 resource "aws_launch_template" "template" {
-  name_prefix   = "template1"
-  image_id      = "ami-0c2b8ca1dad447f8a"
-  instance_type = "t2.micro"
+  name_prefix   = local.template_name
+  image_id      = var.ami
+  instance_type = var.shape
 }
 
 resource "aws_autoscaling_group" "asg" {
-  availability_zones = ["us-east-1a", "us-east-1b"]
-  desired_capacity   = 2
-  max_size           = 3
-  min_size           = 2
+  name                = local.asg_name
+  vpc_zone_identifier = [aws_subnet.Private_subnet1.id, aws_subnet.Private_subnet2.id]
+  desired_capacity    = var.asg_desired
+  max_size            = var.asg_max
+  min_size            = var.asg_min
 
   launch_template {
     id      = aws_launch_template.template.id
-    version = "$Latest"
+    version = var.asg_version
   }
 }
