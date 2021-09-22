@@ -1,5 +1,5 @@
 resource "aws_nat_gateway" "nat_gw_1" {
-  subnet_id = aws_subnet.Public_subnet1.id
+  subnet_id         = aws_subnet.Public_subnet1.id
   connectivity_type = "private"
   tags = {
     Name = "gw NAT 1"
@@ -11,7 +11,7 @@ resource "aws_nat_gateway" "nat_gw_1" {
 }
 
 resource "aws_nat_gateway" "nat_gw_2" {
-  subnet_id = aws_subnet.Public_subnet2.id
+  subnet_id         = aws_subnet.Public_subnet2.id
   connectivity_type = "private"
   tags = {
     Name = "gw NAT 2"
